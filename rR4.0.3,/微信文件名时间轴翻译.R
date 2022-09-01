@@ -90,6 +90,11 @@ fname2timef(f.ls,'jpg')
 
 
 #正式版 Wed Aug 31 01:09:46 2022 ------------------------------
+library(fs)
+require(stringr)
+require(lubridate)
+require(tidyr)
+
 ren_run <- function(type) {
 f.ls <- dir_ls(glob = paste0('*.',type,'$'));f.ls |> head()
 
@@ -99,9 +104,12 @@ ok.dt <-
   ok.dt <-
     ok.dt[!is.na(ok.dt[,2]), ]
   rm(f.ls)
-  kittyR::meowR(sound = 4)
+  write.csv(ok.dt,file = 'renamedata.csv')
 file.rename(ok.dt[,1],ok.dt[,2])
 
 }
+#
+# file.choose(new = FALSE) |> setwd()
+ren_run(type = 'jpg');  kittyR::meowR(sound = 4)
 
-ren_run(type = 'jpg')
+
